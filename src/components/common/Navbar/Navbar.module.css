@@ -1,0 +1,144 @@
+/* --- Base Navbar Layout --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all var(--transition-smooth);
+  padding: 1.5rem 0;
+}
+
+/* --- Glassmorphism Effect on Scroll --- */
+.navbarGlass {
+  background: rgba(255, 253, 245, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+.navbarTransparent {
+  background: transparent;
+}
+
+/* --- Container Logic --- */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-sm);
+}
+
+/* --- Branding/Logo --- */
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--color-primary-dark);
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--color-secondary);
+}
+
+/* --- Desktop Navigation --- */
+.navDesktop {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.navLink {
+  position: relative;
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color var(--transition-fast);
+  padding: 0.5rem 0;
+}
+
+.navLink:hover {
+  color: var(--color-primary);
+}
+
+/* --- Active & Hover Indicators --- */
+.activeIndicator {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+.hoverUnderline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-secondary);
+  transition: width var(--transition-fast);
+}
+
+.navLink:hover .hoverUnderline {
+  width: 100%;
+}
+
+/* --- Mobile Menu Toggle --- */
+.navToggle {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--color-primary-dark);
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* --- Mobile Overlay Menu --- */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-main);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  z-index: 999;
+}
+
+.mobileLink {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.mobileLink:hover {
+  color: var(--color-primary);
+}
+
+/* --- Responsive Breakpoints --- */
+@media (max-width: 1024px) {
+  .navDesktop {
+    display: none;
+  }
+  
+  .navToggle {
+    display: block;
+  }
+}

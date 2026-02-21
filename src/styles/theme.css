@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap');
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+
+:root {
+  /* --- Primary Color Palette (Bhagwa/Saffron) --- */
+  --color-primary: #FF9933;        /* Deep Saffron */
+  --color-primary-light: #FFB366;  /* Soft Saffron */
+  --color-primary-dark: #CC7A29;   /* Burnt Orange */
+  
+  /* --- Secondary & Accent (Sacred Gold & Marigold) --- */
+  --color-secondary: #D4AF37;      /* Metallic Gold */
+  --color-accent: #E63946;         /* Vermilion (Tilak Red) */
+  
+  /* --- Backgrounds & Surfaces --- */
+  --bg-main: #FFFDF5;              /* Off-white (Parchment feel) */
+  --bg-surface: #FFFFFF;           /* Pure White */
+  --bg-dark: #1A1A1A;              /* For footer/dark sections */
+  
+  /* --- Typography Colors --- */
+  --text-main: #2D241E;            /* Warm Charcoal */
+  --text-muted: #6B5E55;           /* Earthy Brown-Grey */
+  --text-on-primary: #FFFFFF;
+  
+  /* --- Spacing System --- */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 1rem;     /* 16px */
+  --space-md: 2rem;     /* 32px */
+  --space-lg: 4rem;     /* 64px */
+  --space-xl: 8rem;     /* 128px */
+
+  /* --- Container Widths --- */
+  --container-max: 1280px;
+  --container-narrow: 800px;
+  
+  /* --- Animation & Transitions --- */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  --animation-float: 3s ease-in-out infinite;
+}
+
+/* --- Typography Pairing --- */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif; /* Or similar Serif for a royal look */
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+body {
+  font-family: 'Inter', 'Assistant', sans-serif; /* Clean sans-serif for body */
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+
+
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 4px; /* Minimalist modern sharp-round */
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+  color: var(--color-primary);
+  background: rgba(255, 153, 51, 0.05);
+}
+
+
+.card-premium {
+  background: var(--bg-surface);
+  border-radius: 8px;
+  padding: var(--space-md);
+  border: 1px solid rgba(212, 175, 55, 0.1); /* Subtle gold border */
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-premium:hover {
+  border-color: var(--color-secondary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  transform: scale(1.02);
+}
+
+/* The "Aura" effect on hover */
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at top right, rgba(255,153,51,0.05), transparent);
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.card-premium:hover::before {
+  opacity: 1;
+}
