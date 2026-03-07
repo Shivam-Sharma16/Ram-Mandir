@@ -26,35 +26,35 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`navbar ${isScrolled ? "navbar-glass" : "navbar-transparent"}`}>
-      <div className="navbar-container">
+    <nav className={`${styles.navbar} ${isScrolled ? styles.navbarGlass : styles.navbarTransparent}`}>
+      <div className={styles.container}>
         {/* Logo */}
-        <Link href="/" className="navbar-logo">
+        <Link href="/" className={styles.logo}>
           Shree Ram <span>Mandir</span>
         </Link>
 
         {/* Desktop Links */}
-        <div className="nav-desktop">
+        <div className={styles.navDesktop}>
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
-              <Link key={link.href} href={link.href} className="nav-link">
+              <Link key={link.href} href={link.href} className={styles.navLink}>
                 {link.name}
                 {isActive && (
                   <motion.div
                     layoutId="activeTab"
-                    className="active-indicator"
+                    className={styles.activeIndicator}
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
-                <span className="hover-underline" />
+                <span className={styles.hoverUnderline} />
               </Link>
             );
           })}
         </div>
 
         {/* Mobile Toggle */}
-        <button className="nav-toggle" onClick={() => setIsOpen(!isOpen)}>
+        <button className={styles.navToggle} onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <HiX /> : <HiMenuAlt3 />}
         </button>
       </div>
@@ -66,14 +66,14 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="mobile-menu"
+            className={styles.mobileMenu}
           >
             {navLinks.map((link) => (
-              <Link 
-                key={link.href} 
-                href={link.href} 
+              <Link
+                key={link.href}
+                href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="mobile-link"
+                className={styles.mobileLink}
               >
                 {link.name}
               </Link>

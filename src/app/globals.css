@@ -1,8 +1,14 @@
+/* Remove @import "tailwindcss" or @tailwind directives */
 @import "../styles/theme.css";
 
-/* Global Body & Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--bg-main);
   color: var(--text-main);
-  scroll-behavior: auto !important; /* For Lenis compatibility */
+  scroll-behavior: auto !important; /* Required for Lenis */
 }
