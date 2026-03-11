@@ -3,6 +3,7 @@ import "./globals.css"; // Import your global styles and theme
 import SmoothScroll from "@/src/components/common/SmoothScroll";
 import Navbar from "@/src/components/common/Navbar/Navbar";
 import Footer from "@/src/components/common/Footer/Footer";
+import GoogleTranslate from "@/src/components/common/GoogleTranslate";
 
 export const metadata: Metadata = {
   title: "Shree Ram Mandir | Ayodhya",
@@ -23,6 +24,9 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </SmoothScroll>
+
+        {/* Hidden Google Translate Component */}
+        <GoogleTranslate />
       </body>
     </html>
   );
