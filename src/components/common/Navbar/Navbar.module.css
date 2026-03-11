@@ -1,144 +1,509 @@
-/* --- Base Navbar Layout --- */
+/* ============================================================
+   Navbar.module.css
+   Shree Ram Mandir — Navigation Bar CSS Module
+
+   Design System (matches HomeContent.module.css):
+   ─ Colors:
+     #3D0408  — deep maroon (base dark)
+     #6B0F1A  — maroon (primary brand)
+     #D4AF37  — gold (accent)
+     #FF6B1A  — saffron (highlight / CTA)
+     #F0D060  — light gold
+     #FDF6E3  — cream (background)
+     #FFFDF7  — near-white cream
+   ─ Fonts:
+     'Cinzel Decorative'  — logo display
+     'Cinzel'             — nav links, headings
+     'Raleway'            — sub-labels, badges
+     'Cormorant Garamond' — body / italic text
+   ============================================================ */
+
+/* ===========================
+   KEYFRAME ANIMATIONS
+=========================== */
+
+/* Shimmer sweep across logo text */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* Gentle float for the Om symbol */
+@keyframes float {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-4px); }
+}
+
+/* Glow pulse on Om */
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(212,175,55,0.5), 0 0 20px rgba(212,175,55,0.2); }
+  50%       { text-shadow: 0 0 22px rgba(212,175,55,0.9), 0 0 40px rgba(212,175,55,0.4), 0 0 60px rgba(255,107,26,0.2); }
+}
+
+/* Slide down for mobile menu items */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+/* Top border shimmer sweep */
+@keyframes borderShimmer {
+  0%   { background-position: -400% center; }
+  100% { background-position:  400% center; }
+}
+
+/* ===========================
+   NAVBAR BASE
+=========================== */
+
 .navbar {
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  transition: all var(--transition-smooth);
-  padding: 1.5rem 0;
-}
 
-/* --- Glassmorphism Effect on Scroll --- */
-.navbarGlass {
-  background: rgba(255, 253, 245, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-}
-
-.navbarTransparent {
+  /* Default: fully transparent over hero */
   background: transparent;
+  transition:
+    background 0.45s ease,
+    box-shadow  0.45s ease,
+    backdrop-filter 0.45s ease;
 }
 
-/* --- Container Logic --- */
-.container {
-  max-width: var(--container-max);
-  margin: 0 auto;
+/* ── Scrolled state — glassmorphism ──────────────────────────────────────── */
+.navbarScrolled {
+  background: rgba(42, 3, 5, 0.82);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.35),
+    0 1px 0   rgba(212,175,55,0.25);
+}
+
+/* ===========================
+   DECORATIVE TOP BORDER
+=========================== */
+
+.topBorder {
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #D4AF37 20%,
+    #FF6B1A 50%,
+    #D4AF37 80%,
+    transparent 100%
+  );
+  background-size: 400% auto;
+  animation: borderShimmer 6s linear infinite;
+}
+
+/* ===========================
+   INNER LAYOUT
+=========================== */
+
+.navInner {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 var(--space-sm);
+  padding: 16px 5%;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 24px;
 }
 
-/* --- Branding/Logo --- */
+/* ===========================
+   LOGO / BRANDING (LEFT)
+=========================== */
+
 .logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--color-primary-dark);
-  letter-spacing: -0.5px;
-}
-
-.logo span {
-  color: var(--color-secondary);
-}
-
-/* --- Desktop Navigation --- */
-.navDesktop {
   display: flex;
-  gap: var(--space-md);
   align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
+/* Om symbol — animated glow + float */
+.logoOm {
+  font-size: 2rem;
+  color: #F0D060;
+  line-height: 1;
+  animation: float 3s ease-in-out infinite, glowPulse 4s ease-in-out infinite;
+  display: block;
+  user-select: none;
+}
+
+/* Text block beside Om */
+.logoTextBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* "Shree Ram Mandir" — shimmer gold gradient */
+.logoMain {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+
+  /* Shimmer effect matching hero title */
+  background: linear-gradient(
+    135deg,
+    #FFF8DC 0%,
+    #F0D060 35%,
+    #D4AF37 65%,
+    #E8A020 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+
+/* "Ayodhya · अयोध्या" — subtitle */
+.logoSub {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(212,175,55,0.7);
+  padding-top: 1px;
+}
+
+/* ===========================
+   DESKTOP NAV LINKS (RIGHT)
+=========================== */
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  list-style: none;
+}
+
+/* ── Individual nav link ─────────────────────────────────────────────────── */
 .navLink {
   position: relative;
+  display: inline-block;
+  padding: 8px 14px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(253,246,227,0.8);
   text-decoration: none;
-  color: var(--text-main);
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color var(--transition-fast);
-  padding: 0.5rem 0;
+  transition: color 0.3s ease, transform 0.25s ease;
 }
 
 .navLink:hover {
-  color: var(--color-primary);
+  color: #F0D060;
+  transform: translateY(-1px);
 }
 
-/* --- Active & Hover Indicators --- */
-.activeIndicator {
+/* Active state */
+.navLinkActive {
+  color: #F0D060 !important;
+}
+
+/* ── Animated underline ──────────────────────────────────────────────────── */
+.linkUnderline {
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--color-primary);
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: calc(100% - 28px);
+  height: 1.5px;
+  background: linear-gradient(to right, #FF6B1A, #D4AF37, #FF6B1A);
   border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
+  box-shadow: 0 0 6px rgba(212,175,55,0.4);
 }
 
-.hoverUnderline {
+.navLink:hover .linkUnderline,
+.navLinkActive .linkUnderline {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ── CTA Button — "Book Darshan" ─────────────────────────────────────────── */
+.navCta {
+  display: inline-block;
+  padding: 9px 22px;
+  margin-left: 10px;
+  border: 1.5px solid #D4AF37;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #F0D060;
+  position: relative;
+  overflow: hidden;
+  transition:
+    color      0.35s ease,
+    border-color 0.35s ease,
+    box-shadow   0.35s ease,
+    transform    0.25s ease;
+}
+
+/* Sliding fill background */
+.navCta::before {
+  content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--color-secondary);
-  transition: width var(--transition-fast);
+  inset: 0;
+  background: linear-gradient(135deg, #D4AF37 0%, #FF6B1A 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.38s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 0;
 }
 
-.navLink:hover .hoverUnderline {
-  width: 100%;
+.navCtaInner {
+  position: relative;
+  z-index: 1;
 }
 
-/* --- Mobile Menu Toggle --- */
-.navToggle {
+.navCta:hover {
+  color: #3D0408;
+  border-color: #D4AF37;
+  box-shadow: 0 0 22px rgba(212,175,55,0.35), 0 4px 12px rgba(212,175,55,0.2);
+  transform: translateY(-2px);
+}
+
+.navCta:hover::before {
+  transform: scaleX(1);
+}
+
+/* ===========================
+   HAMBURGER BUTTON (Mobile)
+=========================== */
+
+.hamburger {
   display: none;
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  color: var(--color-primary-dark);
-  cursor: pointer;
-  z-index: 1001;
-}
-
-/* --- Mobile Overlay Menu --- */
-.mobileMenu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: var(--bg-main);
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: var(--space-md);
-  z-index: 999;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 8px;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
-.mobileLink {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-main);
+.hamburger:hover {
+  border-color: rgba(212,175,55,0.7);
+  background: rgba(212,175,55,0.08);
+}
+
+/* The three bar lines */
+.hamburgerLine {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #D4AF37;
+  border-radius: 2px;
+  transition:
+    transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity   0.25s ease,
+    width     0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate to ✕ when open */
+.hamburgerOpen .hamburgerLine:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.hamburgerOpen .hamburgerLine:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.hamburgerOpen .hamburgerLine:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ===========================
+   MOBILE MENU DROPDOWN
+=========================== */
+
+.mobileMenu {
+  /* Hidden by default */
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity    0.35s ease;
+  opacity: 0;
+
+  background: rgba(42, 3, 5, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(212,175,55,0.15);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+
+.mobileMenuOpen {
+  max-height: 460px;
+  opacity: 1;
+}
+
+/* ── Decorative ornament inside mobile menu ─────────────────────────────── */
+.mobileOrnament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 5% 0;
+}
+
+.mobileOrnamentLine {
+  height: 1px;
+  flex: 1;
+  max-width: 100px;
+  background: linear-gradient(to right, transparent, rgba(212,175,55,0.4));
+}
+
+.mobileOrnamentLineR {
+  height: 1px;
+  flex: 1;
+  max-width: 100px;
+  background: linear-gradient(to left, transparent, rgba(212,175,55,0.4));
+}
+
+.mobileOrnamentDiamond {
+  width: 7px;
+  height: 7px;
+  background: #D4AF37;
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px rgba(212,175,55,0.5);
+}
+
+/* ── Mobile nav links list ──────────────────────────────────────────────── */
+.mobileNavLinks {
+  list-style: none;
+  margin: 0;
+  padding: 16px 5% 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobileNavItem {
+  list-style: none;
+  opacity: 0;
+  animation: none;
+}
+
+/* Run slide-down only when menu is open */
+.mobileMenuOpen .mobileNavItem {
+  animation: slideDown 0.35s ease forwards;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 12px 16px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(253,246,227,0.75);
   text-decoration: none;
-  transition: color var(--transition-fast);
+  border-radius: 6px;
+  border-left: 2px solid transparent;
+  transition:
+    color        0.3s ease,
+    background   0.3s ease,
+    border-color 0.3s ease,
+    padding-left 0.3s ease;
 }
 
-.mobileLink:hover {
-  color: var(--color-primary);
+.mobileNavLink:hover {
+  color: #F0D060;
+  background: rgba(212,175,55,0.07);
+  border-color: #FF6B1A;
+  padding-left: 22px;
 }
 
-/* --- Responsive Breakpoints --- */
-@media (max-width: 1024px) {
-  .navDesktop {
+.mobileNavLinkActive {
+  color: #F0D060 !important;
+  background: rgba(212,175,55,0.09);
+  border-color: #D4AF37 !important;
+}
+
+/* ── Mobile CTA button ──────────────────────────────────────────────────── */
+.mobileNavCta {
+  display: block;
+  margin: 12px 5% 24px;
+  padding: 13px 24px;
+  text-align: center;
+  background: linear-gradient(135deg, #D4AF37 0%, #FF6B1A 100%);
+  color: #3D0408;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 6px;
+  box-shadow: 0 4px 18px rgba(212,175,55,0.3);
+  transition: box-shadow 0.3s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.mobileNavCta:hover {
+  box-shadow: 0 8px 28px rgba(212,175,55,0.45);
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   RESPONSIVE BREAKPOINTS
+=========================== */
+
+@media (max-width: 900px) {
+  /* Hide desktop links */
+  .navLinks {
     display: none;
   }
-  
-  .navToggle {
-    display: block;
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .navInner {
+    padding: 14px 4%;
+  }
+
+  .logoMain {
+    font-size: 0.85rem;
+  }
+
+  .logoOm {
+    font-size: 1.7rem;
+  }
+
+  .logoSub {
+    display: none;
   }
 }

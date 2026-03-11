@@ -1,49 +1,322 @@
-"use client";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { FaFacebook, FaInstagram, FaYoutube, FaArrowUp } from "react-icons/fa";
-import styles from "./Footer.module.css"
+'use client';
 
-export default function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+/**
+ * Footer.tsx
+ * Shree Ram Mandir — Complete Footer Component
+ *
+ * Design Language: Matches HomeContent.tsx & Navbar.tsx
+ *   - Colors: #3D0408, #6B0F1A, #D4AF37, #FF6B1A, #F0D060, #FDF6E3
+ *   - Fonts: Cinzel Decorative (logo), Cinzel (headings), Raleway (labels),
+ *            Cormorant Garamond (body text)
+ *   - Animations: shimmer, float, glowPulse, borderShimmer
+ *
+ * Usage:
+ *   import Footer from './Footer';
+ *   <Footer />
+ */
+
+import React, { useState } from 'react';
+import styles from './Footer.module.css';
+
+// ─────────────────────────────────────────────
+// TYPE DEFINITIONS
+// ─────────────────────────────────────────────
+
+interface FooterLink {
+  label: string;
+  href: string;
+}
+
+interface FooterColumn {
+  heading: string;
+  links: FooterLink[];
+}
+
+interface SocialLink {
+  icon: string;
+  label: string;
+  href: string;
+}
+
+interface ContactItem {
+  icon: string;
+  label: string;
+  value: string;
+}
+
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+
+const FOOTER_COLUMNS: FooterColumn[] = [
+  {
+    heading: 'Quick Links',
+    links: [
+      { label: 'Home',              href: '#hero'      },
+      { label: 'Darshan Timings',   href: '#info'      },
+      { label: 'Special Poojas',    href: '#info'      },
+      { label: 'Panchang 2025–26',  href: '#panchang'  },
+      { label: 'Gallery',           href: '#navgraha'  },
+      { label: 'Latest News',       href: '#news'      },
+    ],
+  },
+  {
+    heading: 'Seva & Offerings',
+    links: [
+      { label: 'Donate Online',         href: '#donation' },
+      { label: 'Book Darshan Slot',      href: '#donation' },
+      { label: 'Pooja Booking',          href: '#donation' },
+      { label: 'Annadaan Seva',          href: '#news'     },
+      { label: 'Veda Pathshala',         href: '#news'     },
+      { label: 'Dharamshala Booking',    href: '#news'     },
+    ],
+  },
+  {
+    heading: 'Pilgrimage',
+    links: [
+      { label: 'How to Reach',          href: '#' },
+      { label: 'Shuttle Service',       href: '#' },
+      { label: 'Nearby Temples',        href: '#' },
+      { label: 'Ayodhya Travel Guide',  href: '#' },
+      { label: 'Ram Navami Package',    href: '#' },
+      { label: 'Accessibility Info',    href: '#' },
+    ],
+  },
+];
+
+const SOCIAL_LINKS: SocialLink[] = [
+  { icon: '📘', label: 'Facebook',  href: '#' },
+  { icon: '📸', label: 'Instagram', href: '#' },
+  { icon: '🐦', label: 'Twitter',   href: '#' },
+  { icon: '▶️',  label: 'YouTube',   href: '#' },
+  { icon: '💬', label: 'WhatsApp',  href: '#' },
+];
+
+const CONTACT_ITEMS: ContactItem[] = [
+  { icon: '📍', label: 'Address',   value: 'Ram Janmabhoomi, Ayodhya, Uttar Pradesh – 224123' },
+  { icon: '📞', label: 'Helpline',  value: '1800-XXX-XXXX (Toll Free)' },
+  { icon: '✉️',  label: 'Email',    value: 'info@shreeram.mandir.gov.in' },
+  { icon: '🕐', label: 'Darshan',   value: 'Open Daily · 5:00 AM – 10:00 PM' },
+];
+
+const BOTTOM_LINKS: FooterLink[] = [
+  { label: 'Privacy Policy',    href: '#' },
+  { label: 'Terms of Use',      href: '#' },
+  { label: 'RTI',               href: '#' },
+  { label: 'Accessibility',     href: '#' },
+  { label: 'Sitemap',           href: '#' },
+];
+
+// ─────────────────────────────────────────────
+// HELPER — Ornament divider (reused from HomeContent pattern)
+// ─────────────────────────────────────────────
+
+const Ornament: React.FC<{ light?: boolean }> = ({ light = false }) => (
+  <div className={styles.ornament}>
+    <div className={light ? styles.ornamentLineDark : styles.ornamentLine} />
+    <div className={styles.ornamentDiamond} />
+    <div className={light ? styles.ornamentLineDarkR : styles.ornamentLineR} />
+  </div>
+);
+
+// ─────────────────────────────────────────────
+// MAIN COMPONENT
+// ─────────────────────────────────────────────
+
+const Footer: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [subscribed, setSubscribed] = useState<boolean>(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubscribed(true);
+      setEmail('');
+    }
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href === '#') return;
+    e.preventDefault();
+    const id = href.replace('#', '');
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.container}>
-        {/* Info Section */}
-        <div className={styles.section}>
-          <h3>Shree Ram Mandir</h3>
-          <p className={styles.description}>Ayodhya, Uttar Pradesh, India</p>
-          <div className={styles.socialContainer}>
-            <FaFacebook className={styles.socialIcon} />
-            <FaInstagram className={styles.socialIcon} />
-            <FaYoutube className={styles.socialIcon} />
-          </div>
-        </div>
 
-        {/* Quick Links */}
-        <div className={styles.section}>
-          <h4>Quick Links</h4>
-          <div className={styles.linkList}>
-            <Link href="/gallery" className={styles.link}>Gallery</Link>
-            <Link href="/about" className={styles.link}>History</Link>
-            <Link href="/contact" className={styles.link}>Contact</Link>
-          </div>
-        </div>
+      {/* ── Top decorative border (matches Navbar & section borders) ─── */}
+      <div className={styles.topBorder} aria-hidden="true" />
 
-        {/* Action Section */}
-        <div className={styles.section}>
-          <h4>Support</h4>
-          <Link href="/donate" className="btn btn-primary">Donation</Link>
+      {/* ══════════════════════════════════════════
+           NEWSLETTER STRIP
+      ══════════════════════════════════════════ */}
+      <div className={styles.newsletterStrip}>
+        <div className={styles.newsletterInner}>
+          <div className={styles.newsletterText}>
+            <span className={styles.newsletterTag}>🪔 Temple Updates</span>
+            <p className={styles.newsletterHeading}>Receive Divine Notifications</p>
+            <p className={styles.newsletterSub}>
+              Festival alerts, Panchang updates & exclusive seva opportunities — delivered to your inbox.
+            </p>
+          </div>
+
+          {subscribed ? (
+            <div className={styles.subscribedMsg}>
+              <span className={styles.subscribedIcon}>🙏</span>
+              <p className={styles.subscribedText}>
+                Jai Shree Ram! You have been blessed with our updates.
+              </p>
+            </div>
+          ) : (
+            <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
+              <input
+                type="email"
+                className={styles.newsletterInput}
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                aria-label="Email address for newsletter"
+              />
+              <button type="submit" className={styles.newsletterBtn}>
+                <span className={styles.newsletterBtnInner}>Subscribe</span>
+              </button>
+            </form>
+          )}
         </div>
       </div>
 
+      {/* ══════════════════════════════════════════
+           MAIN FOOTER BODY
+      ══════════════════════════════════════════ */}
+      <div className={styles.footerBody}>
+        <div className={styles.footerGrid}>
+
+          {/* ── Column 0: Brand / About ──────────────────────────────── */}
+          <div className={styles.brandCol}>
+            {/* Logo — mirrors Navbar logo */}
+            <div className={styles.footerLogo}>
+              <span className={styles.footerLogoOm}>ॐ</span>
+              <span className={styles.footerLogoTextBlock}>
+                <span className={styles.footerLogoMain}>Shree Ram Mandir</span>
+                <span className={styles.footerLogoSub}>Ayodhya · अयोध्या</span>
+              </span>
+            </div>
+
+            <Ornament />
+
+            <p className={styles.brandDesc}>
+              Built on the sacred soil of Ayodhya, the birthplace of
+              Maryada Purushottam Lord Ram, this divine temple stands as
+              an eternal beacon of Dharma, devotion, and the timeless
+              spirit of Bharat.
+            </p>
+
+            {/* Sanskrit verse */}
+            <p className={styles.brandVerse}>
+              "रामो विग्रहवान् धर्मः"
+            </p>
+            <p className={styles.brandVerseEn}>
+              — Ram is the embodiment of Dharma
+            </p>
+
+            {/* Social icons */}
+            <div className={styles.socialRow}>
+              {SOCIAL_LINKS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  className={styles.socialIcon}
+                  aria-label={s.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{s.icon}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Columns 1–3: Link columns ────────────────────────────── */}
+          {FOOTER_COLUMNS.map((col) => (
+            <div key={col.heading} className={styles.linkCol}>
+              <h3 className={styles.colHeading}>{col.heading}</h3>
+              <div className={styles.colUnderline} aria-hidden="true" />
+              <ul className={styles.linkList}>
+                {col.links.map((link) => (
+                  <li key={link.label} className={styles.linkItem}>
+                    <a
+                      href={link.href}
+                      className={styles.footerLink}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                    >
+                      <span className={styles.linkArrow} aria-hidden="true">›</span>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* ── Column 4: Contact ────────────────────────────────────── */}
+          <div className={styles.contactCol}>
+            <h3 className={styles.colHeading}>Contact Us</h3>
+            <div className={styles.colUnderline} aria-hidden="true" />
+            <ul className={styles.contactList}>
+              {CONTACT_ITEMS.map((item) => (
+                <li key={item.label} className={styles.contactItem}>
+                  <span className={styles.contactIcon}>{item.icon}</span>
+                  <div>
+                    <span className={styles.contactLabel}>{item.label}</span>
+                    <p className={styles.contactValue}>{item.value}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════
+           BOTTOM BAR
+      ══════════════════════════════════════════ */}
       <div className={styles.bottomBar}>
-        <p className={styles.copyright}>© 2026 Shree Ram Mandir. All Rights Reserved.</p>
-        <button onClick={scrollToTop} className={styles.backToTop}>
-          <FaArrowUp />
-        </button>
+        <div className={styles.bottomBarInner}>
+
+          {/* Copyright */}
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()} Shree Ram Janmabhoomi Teertha Kshetra Trust.
+            All rights reserved.
+          </p>
+
+          {/* Bottom links */}
+          <nav className={styles.bottomLinks} aria-label="Footer policy links">
+            {BOTTOM_LINKS.map((link, i) => (
+              <React.Fragment key={link.label}>
+                <a href={link.href} className={styles.bottomLink}>
+                  {link.label}
+                </a>
+                {i < BOTTOM_LINKS.length - 1 && (
+                  <span className={styles.bottomSep} aria-hidden="true">·</span>
+                )}
+              </React.Fragment>
+            ))}
+          </nav>
+
+          {/* "Made with devotion" tag */}
+          <p className={styles.madWith}>
+            🙏 Jai Shree Ram
+          </p>
+
+        </div>
       </div>
+
     </footer>
   );
-}
+};
+
+export default Footer;

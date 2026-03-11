@@ -1,147 +1,690 @@
-/* --- Footer Base Layout --- */
-.footer {
-  background-color: var(--bg-dark);
-  color: #FFFFFF;
-  padding: var(--space-xl) 0 var(--space-md);
-  margin-top: var(--space-xl);
-  position: relative;
-  overflow: hidden;
+/* ============================================================
+   Footer.module.css
+   Shree Ram Mandir — Footer CSS Module
+
+   Design System (matches HomeContent.module.css & Navbar.module.css):
+   ─ Colors:
+     #3D0408  — deep maroon (base dark)
+     #6B0F1A  — maroon (primary brand)
+     #2A0305  — darkest maroon (footer body bg)
+     #D4AF37  — gold (accent)
+     #FF6B1A  — saffron (highlight / CTA)
+     #F0D060  — light gold
+     #FDF6E3  — cream (text on dark)
+   ─ Fonts:
+     'Cinzel Decorative'  — logo display
+     'Cinzel'             — column headings
+     'Raleway'            — labels, tags, bottom bar
+     'Cormorant Garamond' — body text, descriptions
+   ============================================================ */
+
+/* ===========================
+   KEYFRAME ANIMATIONS
+=========================== */
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
 }
 
-/* Subtle spiritual pattern or gradient overlay */
+@keyframes float {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-4px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(212,175,55,0.5), 0 0 20px rgba(212,175,55,0.2); }
+  50%       { text-shadow: 0 0 22px rgba(212,175,55,0.9), 0 0 40px rgba(212,175,55,0.4), 0 0 60px rgba(255,107,26,0.2); }
+}
+
+@keyframes borderShimmer {
+  0%   { background-position: -400% center; }
+  100% { background-position:  400% center; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ===========================
+   FOOTER ROOT
+=========================== */
+
+.footer {
+  background: linear-gradient(180deg, #3D0408 0%, #2A0305 100%);
+  color: rgba(253,246,227,0.8);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ambient radial glows — matches panchangSection::before */
 .footer::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 30%, rgba(212,175,55,0.06) 0%, transparent 45%),
+    radial-gradient(circle at 90% 70%, rgba(255,107,26,0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* --- Grid Container --- */
-.container {
-  max-width: var(--container-max);
+/* ===========================
+   TOP BORDER (matches Navbar & sections)
+=========================== */
+
+.topBorder {
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #D4AF37 20%,
+    #FF6B1A 50%,
+    #D4AF37 80%,
+    transparent 100%
+  );
+  background-size: 400% auto;
+  animation: borderShimmer 6s linear infinite;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================
+   ORNAMENT DIVIDER
+   (mirrors sectionOrnament from HomeContent)
+=========================== */
+
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 20px;
+}
+
+.ornamentLine {
+  height: 1px;
+  flex: 1;
+  max-width: 60px;
+  background: linear-gradient(to right, transparent, rgba(212,175,55,0.5));
+}
+
+.ornamentLineR {
+  height: 1px;
+  flex: 1;
+  max-width: 60px;
+  background: linear-gradient(to left, transparent, rgba(212,175,55,0.5));
+}
+
+/* Light variants (same naming pattern as HomeContent) */
+.ornamentLineDark  { composes: ornamentLine;  }
+.ornamentLineDarkR { composes: ornamentLineR; }
+
+.ornamentDiamond {
+  width: 8px;
+  height: 8px;
+  background: #D4AF37;
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(212,175,55,0.4);
+  flex-shrink: 0;
+}
+
+/* ===========================
+   NEWSLETTER STRIP
+=========================== */
+
+.newsletterStrip {
+  background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(255,107,26,0.07) 100%);
+  border-bottom: 1px solid rgba(212,175,55,0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.newsletterInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 44px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+/* Left: text block */
+.newsletterText {
+  flex: 1;
+  min-width: 240px;
+}
+
+.newsletterTag {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #FF6B1A;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.newsletterHeading {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  color: #F0D060;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.newsletterSub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(253,246,227,0.6);
+  line-height: 1.6;
+}
+
+/* Right: form */
+.newsletterForm {
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+
+.newsletterInput {
+  padding: 13px 20px;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  outline: none;
+  color: rgba(253,246,227,0.9);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  width: 260px;
+  transition: background 0.3s ease;
+}
+
+.newsletterInput::placeholder {
+  color: rgba(253,246,227,0.35);
+  font-style: italic;
+}
+
+.newsletterInput:focus {
+  background: rgba(255,255,255,0.09);
+}
+
+.newsletterBtn {
+  padding: 13px 24px;
+  background: linear-gradient(135deg, #D4AF37 0%, #FF6B1A 100%);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.newsletterBtn:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 18px rgba(212,175,55,0.4);
+}
+
+.newsletterBtnInner {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #3D0408;
+  position: relative;
+  z-index: 1;
+}
+
+/* Subscribed confirmation */
+.subscribedMsg {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(212,175,55,0.12);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 8px;
+  padding: 16px 24px;
+  animation: fadeInUp 0.5s ease;
+}
+
+.subscribedIcon {
+  font-size: 1.8rem;
+}
+
+.subscribedText {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  color: #F0D060;
+  letter-spacing: 0.06em;
+}
+
+/* ===========================
+   MAIN FOOTER BODY
+=========================== */
+
+.footerBody {
+  position: relative;
+  z-index: 1;
+  padding: 72px 5% 56px;
+}
+
+/* 5-column grid: brand + 3 link cols + contact */
+.footerGrid {
+  max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2fr 1fr 1.5fr; /* Professional unbalanced grid */
-  gap: var(--space-lg);
-  padding: 0 var(--space-sm);
+  grid-template-columns: 1.6fr 1fr 1fr 1fr 1.4fr;
+  gap: 40px 32px;
+  align-items: start;
 }
 
-/* --- Section Styling --- */
-.section h3 {
-  font-family: 'Playfair Display', serif;
-  color: var(--color-primary-light);
-  font-size: 1.8rem;
-  margin-bottom: var(--space-sm);
+/* ===========================
+   BRAND COLUMN
+=========================== */
+
+.brandCol {
+  padding-right: 12px;
 }
 
-.section h4 {
-  font-family: 'Inter', sans-serif;
-  color: var(--color-secondary);
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: var(--space-sm);
+/* Logo — mirrors Navbar logo exactly */
+.footerLogo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 4px;
 }
 
-.description {
-  color: #CCCCCC;
-  font-size: 0.95rem;
-  max-width: 350px;
-  line-height: 1.8;
+.footerLogoOm {
+  font-size: 2.1rem;
+  color: #F0D060;
+  line-height: 1;
+  animation: float 3s ease-in-out infinite, glowPulse 4s ease-in-out infinite;
+  display: block;
+  user-select: none;
 }
 
-/* --- Link Lists --- */
-.linkList {
+.footerLogoTextBlock {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 2px;
 }
 
-.link {
-  color: #BBBBBB;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  width: fit-content;
+.footerLogoMain {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+
+  background: linear-gradient(
+    135deg,
+    #FFF8DC 0%,
+    #F0D060 35%,
+    #D4AF37 65%,
+    #E8A020 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
 }
 
-.link:hover {
-  color: var(--color-primary-light);
-  transform: translateX(5px);
+.footerLogoSub {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(212,175,55,0.65);
 }
 
-/* --- Social Icons --- */
-.socialContainer {
+/* Description text */
+.brandDesc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.97rem;
+  font-style: italic;
+  color: rgba(253,246,227,0.58);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+/* Sanskrit verse */
+.brandVerse {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  color: #D4AF37;
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.brandVerseEn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba(253,246,227,0.4);
+  margin-bottom: 22px;
+}
+
+/* Social icons row */
+.socialRow {
   display: flex;
-  gap: var(--space-sm);
-  margin-top: var(--space-sm);
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .socialIcon {
-  font-size: 1.4rem;
-  color: #FFFFFF;
-  transition: color var(--transition-fast);
-  cursor: pointer;
-}
-
-.socialIcon:hover {
-  color: var(--color-primary);
-}
-
-/* --- Bottom Bar --- */
-.bottomBar {
-  max-width: var(--container-max);
-  margin: var(--space-lg) auto 0;
-  padding: var(--space-md) var(--space-sm) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.copyright {
-  font-size: 0.85rem;
-  color: #888888;
-}
-
-/* --- Back to Top Button --- */
-.backToTop {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  width: 45px;
-  height: 45px;
-  border-radius: 4px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: var(--transition-fast);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  background: rgba(255,255,255,0.03);
+  transition:
+    border-color  0.3s ease,
+    background    0.3s ease,
+    transform     0.25s ease,
+    box-shadow    0.3s ease;
 }
 
-.backToTop:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-5px);
+.socialIcon:hover {
+  border-color: rgba(212,175,55,0.55);
+  background: rgba(212,175,55,0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(212,175,55,0.2);
 }
 
-/* --- Responsive Layout --- */
-@media (max-width: 992px) {
-  .container {
+/* ===========================
+   LINK COLUMNS
+=========================== */
+
+.linkCol {}
+
+.colHeading {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F0D060;
+  margin-bottom: 10px;
+}
+
+/* Short gold underline beneath heading */
+.colUnderline {
+  height: 2px;
+  width: 36px;
+  background: linear-gradient(to right, #FF6B1A, #D4AF37);
+  border-radius: 2px;
+  margin-bottom: 18px;
+}
+
+.linkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.linkItem {
+  list-style: none;
+}
+
+.footerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: rgba(253,246,227,0.58);
+  text-decoration: none;
+  transition:
+    color       0.3s ease,
+    gap         0.3s ease,
+    padding-left 0.3s ease;
+  position: relative;
+}
+
+.footerLink:hover {
+  color: #D4AF37;
+  gap: 10px;
+}
+
+/* Arrow chevron — subtly shifts on hover */
+.linkArrow {
+  font-size: 1rem;
+  color: #FF6B1A;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  line-height: 1;
+}
+
+.footerLink:hover .linkArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===========================
+   CONTACT COLUMN
+=========================== */
+
+.contactCol {}
+
+.contactList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  list-style: none;
+}
+
+.contactIcon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+  line-height: 1;
+}
+
+.contactLabel {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #FF6B1A;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.contactValue {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.97rem;
+  color: rgba(253,246,227,0.72);
+  line-height: 1.5;
+}
+
+/* ===========================
+   BOTTOM BAR
+=========================== */
+
+.bottomBar {
+  border-top: 1px solid rgba(212,175,55,0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.bottomBarInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.copyright {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: rgba(253,246,227,0.38);
+}
+
+/* Policy links */
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.bottomLink {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(253,246,227,0.38);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bottomLink:hover {
+  color: #D4AF37;
+}
+
+.bottomSep {
+  color: rgba(212,175,55,0.3);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+/* "Jai Shree Ram" tag */
+.madWith {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: rgba(212,175,55,0.5);
+  transition: color 0.3s ease;
+}
+
+.madWith:hover {
+  color: #D4AF37;
+}
+
+/* ===========================
+   RESPONSIVE BREAKPOINTS
+=========================== */
+
+@media (max-width: 1024px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px 28px;
+  }
+
+  /* Brand col spans full width on tablet */
+  .brandCol {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 40px;
+    align-items: start;
+  }
+
+  /* Ornament sits inside grid cell */
+  .ornament {
+    grid-column: 1 / -1;
+  }
+
+  .contactCol {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .footerGrid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .brandCol {
+    grid-column: 1 / -1;
+    display: block;
+  }
+
+  .newsletterInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .newsletterForm {
+    width: 100%;
+  }
+
+  .newsletterInput {
+    width: 100%;
+    flex: 1;
+  }
+
+  .contactCol {
+    grid-column: 1 / -1;
+  }
 }
 
-@media (max-width: 640px) {
-  .container {
+@media (max-width: 520px) {
+  .footerGrid {
     grid-template-columns: 1fr;
-    gap: var(--space-md);
   }
-  
-  .bottomBar {
+
+  .bottomBarInner {
     flex-direction: column;
-    gap: var(--space-sm);
+    align-items: center;
     text-align: center;
+    gap: 10px;
+  }
+
+  .bottomLinks {
+    justify-content: center;
+  }
+
+  .footerLogoMain {
+    font-size: 0.85rem;
+  }
+
+  .newsletterForm {
+    flex-direction: column;
+    border-radius: 8px;
+  }
+
+  .newsletterInput {
+    border-radius: 6px 6px 0 0;
+    width: 100%;
+  }
+
+  .newsletterBtn {
+    border-radius: 0 0 6px 6px;
+    padding: 14px;
   }
 }
