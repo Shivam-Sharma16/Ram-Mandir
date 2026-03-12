@@ -618,7 +618,7 @@ const HomeContent: React.FC = () => {
         />
 
         {/* Today's Panchang strip */}
-        <div className={styles.panchangToday}>
+        {/* <div className={styles.panchangToday}>
           <div>
             <span className={styles.todayLabel}>Aaj Ka Panchang</span>
             <div className={styles.todayDateHi}>
@@ -636,7 +636,7 @@ const HomeContent: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Month tabs */}
         <div className={styles.panchangTabs}>
@@ -680,7 +680,7 @@ const HomeContent: React.FC = () => {
         </div>
 
         {/* Astro cards: Sun / Moon / Rahu */}
-        <div className={styles.panchangAstro}>
+        {/* <div className={styles.panchangAstro}>
           {ASTRO_CARDS.map((card) => (
             <div key={card.title} className={styles.astroCard}>
               <span className={styles.astroIcon}>{card.icon}</span>
@@ -693,7 +693,7 @@ const HomeContent: React.FC = () => {
               ))}
             </div>
           ))}
-        </div>
+        </div> */}
       </section>
 
 
