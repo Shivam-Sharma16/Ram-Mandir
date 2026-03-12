@@ -359,8 +359,8 @@ const FestBadge: React.FC<{ type: BadgeType; text: string }> = ({ type, text }) 
     major: '★ ', ekadashi: '', purnima: '', amavasya: '',
   };
   return (
-    <span className={`${styles.festBadge} ${badgeMap[type]}`}>
-      {prefix[type]}{text}
+    <span className={`${styles.festBadge} ${badgeMap[type] || ''}`}>
+      {prefix[type] ? `${prefix[type]}${text}` : text}
     </span>
   );
 };
