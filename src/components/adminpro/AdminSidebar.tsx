@@ -13,6 +13,7 @@ const AdminSidebar = () => {
     { name: 'Dashboard', path: '/adminpro', icon: <FiHome /> },
     { name: 'Hero Banner', path: '/adminpro/hero-banner', icon: <FiFileText /> },
     { name: 'Garbhagriha', path: '/adminpro/garbhagriha', icon: <FiFileText /> },
+    { name: 'Panchang', path: '/adminpro/panchang', icon: <FiFileText /> },
   ];
 
   return (
