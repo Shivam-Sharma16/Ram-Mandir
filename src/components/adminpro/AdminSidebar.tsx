@@ -11,8 +11,7 @@ const AdminSidebar = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/adminpro', icon: <FiHome /> },
-    { name: 'Content', path: '/adminpro/content', icon: <FiFileText /> },
-    { name: 'Settings', path: '/adminpro/settings', icon: <FiSettings /> },
+    { name: 'Hero Banner', path: '/adminpro/hero-banner', icon: <FiFileText /> },
   ];
 
   return (

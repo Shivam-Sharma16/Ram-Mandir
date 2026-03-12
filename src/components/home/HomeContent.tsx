@@ -15,6 +15,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './HomeContent.module.css';
+import { getContentBySectionKey } from '@/src/lib/cms';
 
 // ─────────────────────────────────────────────
 // TYPE DEFINITIONS
@@ -381,6 +382,20 @@ const HomeContent: React.FC = () => {
   const cardsObserverRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
+    // Fetch dynamic hero banner
+    const fetchHeroBanner = async () => {
+      try {
+        const records = await getContentBySectionKey('home_hero');
+        if (records.length > 0 && records[0].imageUrl && heroBgRef.current) {
+          heroBgRef.current.style.backgroundImage = `url(${records[0].imageUrl})`;
+        }
+      } catch (error) {
+        console.error("Failed to load hero banner", error);
+      }
+    };
+    
+    fetchHeroBanner();
+
     // Trigger hero bg scale animation
     const timer = setTimeout(() => setHeroBgLoaded(true), 100);
     return () => clearTimeout(timer);
