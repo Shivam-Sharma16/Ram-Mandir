@@ -21,13 +21,6 @@ import { getContentBySectionKey } from '@/src/lib/cms';
 // TYPE DEFINITIONS
 // ─────────────────────────────────────────────
 
-interface Deity {
-  name: string;
-  graha: string;
-  img: string;
-  alt: string;
-}
-
 interface TimingEntry {
   label: string;
   time: string;
@@ -76,17 +69,6 @@ interface Announcement {
 // ─────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────
-
-const DEITIES: Deity[] = [
-  { name: 'Shree Ram',     graha: 'Surya Graha · Sun',      img: 'https://images.unsplash.com/photo-1609946860441-a51ffcf22208?w=400&q=80', alt: 'Lord Ram' },
-  { name: 'Mata Sita',     graha: 'Chandra Graha · Moon',   img: 'https://images.unsplash.com/photo-1600697230015-4a35ee88b392?w=400&q=80', alt: 'Goddess Sita' },
-  { name: 'Shree Hanuman', graha: 'Mangal Graha · Mars',    img: 'https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=400&q=80', alt: 'Lord Hanuman' },
-  { name: 'Shree Ganesh',  graha: 'Budh Graha · Mercury',   img: 'https://images.unsplash.com/photo-1567633052-22a2f65e6c05?w=400&q=80', alt: 'Lord Ganesha' },
-  { name: 'Shree Shiva',   graha: 'Guru Graha · Jupiter',   img: 'https://images.unsplash.com/photo-1600697229720-e6ace7ae0fe6?w=400&q=80', alt: 'Lord Shiva' },
-  { name: 'Mata Durga',    graha: 'Shukra Graha · Venus',   img: 'https://images.unsplash.com/photo-1585506942812-e72b29cef752?w=400&q=80', alt: 'Goddess Durga' },
-  { name: 'Shree Vishnu',  graha: 'Shani Graha · Saturn',   img: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&q=80', alt: 'Lord Vishnu' },
-  { name: 'Shree Lakshman',graha: 'Rahu / Ketu Graha',      img: 'https://images.unsplash.com/photo-1563452965085-2e77e5bf2607?w=400&q=80', alt: 'Lord Lakshman' },
-];
 
 const TIMINGS: TimingEntry[] = [
   { label: 'Mangala Aarti',     time: '5:00 AM' },
@@ -347,7 +329,6 @@ const QrBox: React.FC<{ variant?: 'gold' | 'maroon' }> = ({ variant = 'gold' }) 
     </div>
   );
 };
-
 /** Badge for panchang festival types */
 const FestBadge: React.FC<{ type: BadgeType; text: string }> = ({ type, text }) => {
   const badgeMap: Record<BadgeType, string> = {
@@ -378,6 +359,9 @@ const HomeContent: React.FC = () => {
   // Active panchang month tab
   const [activeMonth, setActiveMonth] = useState<string>('chaitra');
 
+  // Dynamic Garbhagriha Deities State
+  const [dynamicDeities, setDynamicDeities] = useState<any[]>([]);
+
   // Intersection observer for card fade-in
   const cardsObserverRef = useRef<IntersectionObserver | null>(null);
 
@@ -394,7 +378,23 @@ const HomeContent: React.FC = () => {
       }
     };
     
+    // Fetch dynamic garbha deities
+    const fetchDeities = async () => {
+      try {
+        const records = await getContentBySectionKey('garbhagriha_deity');
+        records.sort((a, b) => {
+          const pA = a.additionalData?.priority || 0;
+          const pB = b.additionalData?.priority || 0;
+          return pA - pB;
+        });
+        setDynamicDeities(records);
+      } catch (error) {
+        console.error("Failed to load deities", error);
+      }
+    };
+
     fetchHeroBanner();
+    fetchDeities();
 
     // Trigger hero bg scale animation
     const timer = setTimeout(() => setHeroBgLoaded(true), 100);
@@ -505,18 +505,21 @@ const HomeContent: React.FC = () => {
           subtext="The nine celestial guardians who govern the cosmic order, enshrined within the sacred precincts of the Mandir."
         />
         <div className={styles.deityGrid}>
-          {DEITIES.map((deity) => (
-            <div key={deity.name} className={styles.deityCard} data-fadein="true">
-              <div className={styles.deityImgWrapper}>
-                <img src={deity.img} alt={deity.alt} loading="lazy" />
+          {dynamicDeities.length > 0 ? (
+            dynamicDeities.map((deity, idx) => (
+              <div key={idx} className={styles.deityCard} data-fadein="true">
+                <div className={styles.deityImgWrapper}>
+                  <img src={deity.imageUrl} alt={deity.title} loading="lazy" />
+                </div>
+                <div className={styles.deityInfo}>
+                  <p className={styles.deityName}>{deity.title}</p>
+                  <div className={styles.deityDot} />
+                </div>
               </div>
-              <div className={styles.deityInfo}>
-                <p className={styles.deityName}>{deity.name}</p>
-                <p className={styles.deityGraha}>{deity.graha}</p>
-                <div className={styles.deityDot} />
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p style={{ textAlign: 'center', width: '100%', color: '#718096' }}>No deities configured yet.</p>
+          )}
         </div>
       </section>
 

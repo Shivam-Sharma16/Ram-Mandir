@@ -38,3 +38,18 @@ export const uploadHeroImage = async (file: File): Promise<string> => {
     throw error;
   }
 };
+
+export const uploadGenericImage = async (file: File, folder: string): Promise<string> => {
+  try {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${uuidv4()}.${fileExt}`;
+    const storageRef = ref(storage, `${folder}/${fileName}`);
+
+    await uploadBytes(storageRef, file);
+    return await getDownloadURL(storageRef);
+  } catch (error) {
+    console.error(`Error uploading image to ${folder}:`, error);
+    throw error;
+  }
+};
+
