@@ -1,0 +1,31 @@
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f8; /* Light gray background for admin */
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  color: #333; /* Dark text for readability */
+}
+
+/* Base styles for reset within AdminPro to ensure no leaks from main site */
+.mainContent h1,
+.mainContent h2,
+.mainContent h3 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean sans-serif */
+  margin-top: 0;
+}
+
+.mainContent p {
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 1rem;
+    width: calc(100% - 80px); /* Account for mobile sidebar */
+  }
+}
