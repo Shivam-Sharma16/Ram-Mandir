@@ -238,3 +238,9 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.currentBannerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

@@ -2,16 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { getContentBySectionKey } from '@/src/lib/cms';
-import { uploadHeroImage, removeHeroBanner } from '@/src/lib/storage'; // Import removeHeroBanner
+import { uploadHeroImage, removeHeroBanner } from '@/src/lib/storage';
 import styles from './HeroBannerAdmin.module.css';
-import { FiUploadCloud, FiImage, FiCheckCircle, FiTrash2 } from 'react-icons/fi'; // Added FiTrash2
+import { FiUploadCloud, FiImage, FiCheckCircle, FiTrash2 } from 'react-icons/fi';
 
 export default function HeroBannerAdmin() {
   const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false); // New state
+  const [isDeleting, setIsDeleting] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -61,15 +61,14 @@ export default function HeroBannerAdmin() {
     }
   };
 
-  // New function to handle removal
   const handleRemove = async () => {
-    if (!confirm('Are you sure you want to remove the current banner and revert to default?')) return;
+    if (!confirm('Are you sure you want to remove the current banner?')) return;
     
     setIsDeleting(true);
     try {
       await removeHeroBanner();
       setCurrentImageUrl(null);
-      setSuccessMsg('Hero banner removed. Theme default is now active.');
+      setSuccessMsg('Hero banner removed successfully.');
     } catch (err: any) {
       setErrorMsg('Failed to remove banner.');
     } finally {
@@ -81,7 +80,7 @@ export default function HeroBannerAdmin() {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1>Manage Hero Banner</h1>
-        <p>Upload or remove the homepage background image.</p>
+        <p>Upload a new image or remove the current one to use the default.</p>
       </header>
 
       {successMsg && (
@@ -97,18 +96,18 @@ export default function HeroBannerAdmin() {
         <div className={styles.panel}>
           <h2>Current Live Banner</h2>
           {currentImageUrl ? (
-            <>
+            <div className={styles.currentBannerContainer}>
               <div className={styles.imagePreviewWrapper}>
-                <img src={currentImageUrl} alt="Current Hero" className={styles.previewImage} />
+                <img src={currentImageUrl} alt="Current Banner" className={styles.previewImage} />
               </div>
               <button 
                 className={styles.removeBtn} 
                 onClick={handleRemove}
                 disabled={isDeleting}
               >
-                <FiTrash2 /> {isDeleting ? 'Removing...' : 'Remove Current Banner'}
+                <FiTrash2 /> {isDeleting ? 'Removing...' : 'Remove Banner'}
               </button>
-            </>
+            </div>
           ) : (
             <div className={styles.emptyState}>
               <FiImage className={styles.emptyIcon} />
@@ -130,7 +129,7 @@ export default function HeroBannerAdmin() {
             <label htmlFor="bannerUpload" className={styles.uploadLabel}>
               <FiUploadCloud className={styles.uploadIcon} />
               <span className={styles.uploadText}>
-                {selectedFile ? selectedFile.name : 'Click to upload'}
+                {selectedFile ? selectedFile.name : 'Click to select image'}
               </span>
             </label>
           </div>
@@ -138,7 +137,7 @@ export default function HeroBannerAdmin() {
           {previewUrl && (
             <div className={styles.previewSection}>
               <p className={styles.previewTitle}>Preview:</p>
-              <img src={previewUrl} alt="New Selection" className={styles.previewImageSmall} />
+              <img src={previewUrl} alt="Selection" className={styles.previewImageSmall} />
             </div>
           )}
 
