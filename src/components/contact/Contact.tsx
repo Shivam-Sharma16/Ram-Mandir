@@ -404,9 +404,9 @@ const Contact: React.FC = () => {
                   <div>
                     <span className={styles.infoRowLabel}>Address</span>
                     <span className={styles.infoRowValue}>
-                      Shree Ram Mandir Complex,<br />
-                      Near Saryu Ghat, Ayodhya,<br />
-                      Uttar Pradesh – 224123, India
+                      Shree Ram Mandir,<br />
+                      Adarsh Nagar, Govind Marg,<br />
+                      Jaipur – 302004, Rajasthan, India
                     </span>
                   </div>
                 </div>
@@ -415,7 +415,7 @@ const Contact: React.FC = () => {
                   <div>
                     <span className={styles.infoRowLabel}>Nearest Landmark</span>
                     <span className={styles.infoRowValue}>
-                      Saryu River Ghat &amp; Hanuman Garhi
+                      Govind Marg, Adarsh Nagar
                     </span>
                   </div>
                 </div>
@@ -443,7 +443,7 @@ const Contact: React.FC = () => {
               Our Location
             </h2>
             <p className={`${styles.sectionSubtext} ${styles.sectionSubtextLight}`}>
-              Located in the sacred city of Ayodhya, on the banks of the holy River Saryu.
+              Located centrally in Adarsh Nagar, Jaipur.
             </p>
           </div>
 
@@ -458,8 +458,8 @@ const Contact: React.FC = () => {
             <div className={styles.mapInfo}>
               <h3 className={styles.mapInfoTitle}>How to Reach Shree Ram Mandir</h3>
               <p className={styles.mapInfoText}>
-                The temple is situated in the heart of Ayodhya, easily accessible by road, rail,
-                and air. The holy city welcomes millions of devotees every year with open arms
+                The temple is situated in the heart of Jaipur, easily accessible by road, rail,
+                and air. The Pink City welcomes devotees every year with open arms
                 and divine blessings.
               </p>
               <div className={styles.mapDetails}>
@@ -468,7 +468,7 @@ const Contact: React.FC = () => {
                   <div>
                     <span className={styles.mapDetailLabel}>By Air</span>
                     <span className={styles.mapDetailValue}>
-                      Maharishi Valmiki International Airport, Ayodhya (10 km)
+                      Jaipur International Airport (approx. 10 km)
                     </span>
                   </div>
                 </div>
@@ -477,7 +477,7 @@ const Contact: React.FC = () => {
                   <div>
                     <span className={styles.mapDetailLabel}>By Train</span>
                     <span className={styles.mapDetailValue}>
-                      Ayodhya Dham Junction Railway Station (3 km)
+                      Jaipur Junction Railway Station (approx. 6 km)
                     </span>
                   </div>
                 </div>
@@ -486,7 +486,7 @@ const Contact: React.FC = () => {
                   <div>
                     <span className={styles.mapDetailLabel}>By Road</span>
                     <span className={styles.mapDetailValue}>
-                      Well-connected via NH-27 • Free shuttle from station
+                      Well-connected within the city • Accessible via Govind Marg
                     </span>
                   </div>
                 </div>

@@ -77,7 +77,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: 'How to Reach',          href: '#' },
       { label: 'Shuttle Service',       href: '#' },
       { label: 'Nearby Temples',        href: '#' },
-      { label: 'Ayodhya Travel Guide',  href: '#' },
+      { label: 'Jaipur Travel Guide',   href: '#' },
       { label: 'Ram Navami Package',    href: '#' },
       { label: 'Accessibility Info',    href: '#' },
     ],
@@ -93,7 +93,7 @@ const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 const CONTACT_ITEMS: ContactItem[] = [
-  { icon: '📍', label: 'Address',   value: 'Ram Janmabhoomi, Ayodhya, Uttar Pradesh – 224123' },
+  { icon: '📍', label: 'Address',   value: 'Adarsh Nagar, Govind Marg, Jaipur – 302004, Rajasthan' },
   { icon: '📞', label: 'Helpline',  value: '1800-XXX-XXXX (Toll Free)' },
   { icon: '✉️',  label: 'Email',    value: 'info@shreeram.mandir.gov.in' },
   { icon: '🕐', label: 'Darshan',   value: 'Open Daily · 5:00 AM – 10:00 PM' },
@@ -149,44 +149,7 @@ const Footer: React.FC = () => {
       {/* ── Top decorative border (matches Navbar & section borders) ─── */}
       <div className={styles.topBorder} aria-hidden="true" />
 
-      {/* ══════════════════════════════════════════
-           NEWSLETTER STRIP
-      ══════════════════════════════════════════ */}
-      <div className={styles.newsletterStrip}>
-        <div className={styles.newsletterInner}>
-          <div className={styles.newsletterText}>
-            <span className={styles.newsletterTag}>🪔 Temple Updates</span>
-            <p className={styles.newsletterHeading}>Receive Divine Notifications</p>
-            <p className={styles.newsletterSub}>
-              Festival alerts, Panchang updates & exclusive seva opportunities — delivered to your inbox.
-            </p>
-          </div>
 
-          {subscribed ? (
-            <div className={styles.subscribedMsg}>
-              <span className={styles.subscribedIcon}>🙏</span>
-              <p className={styles.subscribedText}>
-                Jai Shree Ram! You have been blessed with our updates.
-              </p>
-            </div>
-          ) : (
-            <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
-              <input
-                type="email"
-                className={styles.newsletterInput}
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                aria-label="Email address for newsletter"
-              />
-              <button type="submit" className={styles.newsletterBtn}>
-                <span className={styles.newsletterBtnInner}>Subscribe</span>
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
 
       {/* ══════════════════════════════════════════
            MAIN FOOTER BODY
@@ -201,17 +164,16 @@ const Footer: React.FC = () => {
               <span className={styles.footerLogoOm}>ॐ</span>
               <span className={styles.footerLogoTextBlock}>
                 <span className={styles.footerLogoMain}>Shree Ram Mandir</span>
-                <span className={styles.footerLogoSub}>Ayodhya · अयोध्या</span>
+                <span className={styles.footerLogoSub}>Jaipur · जयपुर</span>
               </span>
             </div>
 
             <Ornament />
 
             <p className={styles.brandDesc}>
-              Built on the sacred soil of Ayodhya, the birthplace of
-              Maryada Purushottam Lord Ram, this divine temple stands as
+              Located in Adarsh Nagar, Jaipur, this divine temple stands as
               an eternal beacon of Dharma, devotion, and the timeless
-              spirit of Bharat.
+              spirit of Sanatan traditions since its establishment in 1955.
             </p>
 
             {/* Sanskrit verse */}
@@ -289,7 +251,7 @@ const Footer: React.FC = () => {
 
           {/* Copyright */}
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} Shree Ram Janmabhoomi Teertha Kshetra Trust.
+            © {new Date().getFullYear()} Shree Ram Mandir Pranyas – Shree Sanatan Dharm Sabha.
             All rights reserved.
           </p>
 

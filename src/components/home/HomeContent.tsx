@@ -117,19 +117,6 @@ const MONTH_TABS = [
 
 
 
-const NEWS_ITEMS: NewsItem[] = [
-  { icon: '🏗️', title: 'Parikrama Marg Phase II Complete',    desc: 'The 5 km parikrama path around the temple complex is now open for devotees with rest points every 500 metres.',           date: '2 March 2026' },
-  { icon: '📱', title: 'Mandir Mobile App Launched',           desc: 'Book darshan slots, receive aarti notifications, and watch live streaming of poojas — now on Android & iOS.',            date: '28 Feb 2026' },
-  { icon: '🍽️', title: 'Annadaan Seva Expansion',             desc: 'The Prasad distribution centre now serves 50,000 pilgrims daily. Sponsor a meal for ₹51 per devotee.',                   date: '20 Feb 2026' },
-  { icon: '🎓', title: 'Veda Pathshala Admissions Open',       desc: 'The temple\'s Veda Pathshala is accepting students aged 8–14 for traditional Sanskrit and Vedic learning.',              date: '15 Feb 2026' },
-  { icon: '🌿', title: 'Tulsi Garden Inaugurated',             desc: 'A 2-acre Tulsi Vatika planted with 1.08 lakh Tulsi plants has been consecrated within the temple premises.',             date: '9 Feb 2026' },
-];
-
-const ANNOUNCEMENTS: Announcement[] = [
-  { emoji: '🕐', title: 'Extended Darshan Hours',   body: 'During Ram Navami week (Apr 1–6), darshan will be available 24 hours a day with token system.' },
-  { emoji: '🚌', title: 'Free Shuttle Service',      body: 'Free buses from Ayodhya Railway Station every 15 minutes. Last shuttle at 10:30 PM daily.' },
-  { emoji: '🏨', title: 'Dharamshala Booking',       body: '800 rooms available for pilgrims at subsidised rates. Book via temple website or helpline 1800-XXX-XXXX.' },
-];
 
 // ─────────────────────────────────────────────
 // HELPER COMPONENTS
@@ -220,6 +207,8 @@ const HomeContent: React.FC = () => {
   // Active panchang month tab
   const [activeMonth, setActiveMonth] = useState<string>('chaitra');
   const [dynamicPanchang, setDynamicPanchang] = useState<SiteContent[]>([]);
+  const [dynamicNews, setDynamicNews] = useState<SiteContent[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<SiteContent | null>(null);
 
   // Dynamic Garbhagriha Deities State
   const [dynamicDeities, setDynamicDeities] = useState<any[]>([]);
@@ -270,9 +259,25 @@ const HomeContent: React.FC = () => {
       }
     };
 
+    // Fetch dynamic news
+    const fetchNews = async () => {
+      try {
+        const records = await getContentBySectionKey('news_article');
+        records.sort((a, b) => {
+          const dA = a.additionalData?.publishTimestamp || 0;
+          const dB = b.additionalData?.publishTimestamp || 0;
+          return dB - dA;
+        });
+        setDynamicNews(records);
+      } catch (error) {
+        console.error("Failed to load news", error);
+      }
+    };
+
     fetchHeroBanner();
     fetchDeities();
     fetchPanchang();
+    fetchNews();
 
     // Trigger hero bg scale animation
     const timer = setTimeout(() => setHeroBgLoaded(true), 100);
@@ -308,6 +313,9 @@ const HomeContent: React.FC = () => {
   const activeMonthEntries = dynamicPanchang.filter(
     (p) => p.additionalData?.monthId === activeMonth
   );
+
+  const featuredArticle = dynamicNews.find(a => a.additionalData?.isFeatured);
+  const sidebarArticles = dynamicNews.filter(a => a.id !== featuredArticle?.id).slice(0, 5);
 
   return (
     <div className={styles.wrapper}>
@@ -422,17 +430,16 @@ const HomeContent: React.FC = () => {
             <span className={styles.infoIcon}>🏛️</span>
             <h3 className={styles.infoCardTitle}>About the Temple</h3>
             <div className={styles.infoCardBody}>
-              Shree Ram Mandir stands as a testament to India's ancient spiritual heritage,
-              consecrated on the sacred soil of{' '}
-              <strong>Ayodhya</strong> — the birthplace of Maryada Purushottam Lord Ram.
+              The Shree Ram Mandir, an important place of worship in Jaipur, was initially established on{' '}
+              <strong>25th April 1955</strong>, coinciding with the auspicious occasion of Akshaya Tritiya
+              under the Mrighashira Nakshatra.
               <br /><br />
-              Built in the{' '}
-              <strong>Nagara architectural style</strong>, the temple complex spans over 70 acres
-              and features intricate stone carvings, towering shikharas, and sanctuaries dedicated
-              to the entire Ram Parivar.
+              The Pran Pratishtha of Bhagwan Shri Ram was performed under the spiritual guidance
+              of Niranjan Dev Tirtha, the revered Shankaracharya of Govardhan Math, Puri.
               <br /><br />
-              The sanctum sanctorum houses the divine{' '}
-              <strong>Ram Lalla idol</strong>, sculpted in black stone, radiating divine splendour.
+              The main sanctum reveres the sacred idols of{' '}
+              <strong>Lord Rama and Hanuman</strong>, with additional expansions enshrining 
+              Radha Krishna, Vaishno Devi, Lord Shiva, and Lakshmi Narayana.
             </div>
           </div>
 
@@ -491,6 +498,8 @@ const HomeContent: React.FC = () => {
                 src="https://firebasestorage.googleapis.com/v0/b/ram-mandir-32b54.firebasestorage.app/o/garbhagriha%2FWhatsApp%20Image%202026-03-12%20at%2011.11.24%20PM.jpeg?alt=media&token=218b85a7-4e96-46e9-a561-0f14c24c461e"
                 alt="Donation QR Code"
                 className={styles.qrRealImg}
+                loading="lazy"
+                decoding="async"
               />
               <div className={styles.qrScanLine} />
             </div>
@@ -613,64 +622,116 @@ const HomeContent: React.FC = () => {
           subtext="Stay informed with temple announcements, event updates, seva opportunities, and divine happenings."
         />
 
-        {/* Main news layout: featured + sidebar */}
-        <div className={styles.newsLayout}>
+        {dynamicNews.length > 0 ? (
+          <div className={styles.newsLayout}>
 
-          {/* Featured news */}
-          <div className={styles.newsFeatured}>
-            <img
-              src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800&q=80"
-              alt="Ram Navami 2026 Preparations"
-              className={styles.newsFeaturedImg}
-            />
-            <div className={styles.newsFeaturedBody}>
-              <span className={styles.newsCategoryEvent}>Featured Event</span>
-              <h3 className={styles.newsFeaturedTitle}>
-                Ram Navami Mahotsav 2026 — Grand Celebrations Announced
-              </h3>
-              <p className={styles.newsFeaturedExcerpt}>
-                The Shree Ram Janmabhoomi Teertha Kshetra Trust has announced an unprecedented
-                7-day celebration for Ram Navami 2026. The festivities will include continuous
-                Akhand Ramayan recitation, Panchamrit Abhishek of Ram Lalla, Phool Bungla
-                decoration with 10 tonnes of flowers, Ramlila performances across the city, and
-                a grand fireworks display at Saryu Ghat.
-              </p>
-              <div className={styles.newsMeta}>
-                <span className={styles.newsDate}>📅 March 7, 2026 · Temple Committee</span>
-                <button className={styles.newsReadMore}>Read Full Announcement →</button>
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar news items */}
-          <div className={styles.newsSidebar}>
-            <p className={styles.newsSidebarTitle}>Recent Updates</p>
-            {NEWS_ITEMS.map((item) => (
-              <div key={item.title} className={styles.newsItem}>
-                <span className={styles.newsItemIcon}>{item.icon}</span>
-                <div>
-                  <p className={styles.newsItemTitle}>{item.title}</p>
-                  <p className={styles.newsItemDesc}>{item.desc}</p>
-                  <span className={styles.newsItemDate}>📅 {item.date}</span>
+            {/* Featured news */}
+            {featuredArticle && (
+              <div
+                className={styles.newsFeatured}
+                onClick={() => setSelectedArticle(featuredArticle)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedArticle(featuredArticle);
+                  }
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                {featuredArticle.imageUrl && (
+                  <img
+                    src={featuredArticle.imageUrl}
+                    alt={featuredArticle.title}
+                    className={styles.newsFeaturedImg}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+                <div className={styles.newsFeaturedBody}>
+                  <span className={styles.newsCategoryEvent}>{featuredArticle.additionalData?.category || 'Featured'}</span>
+                  <h3 className={styles.newsFeaturedTitle}>{featuredArticle.title}</h3>
+                  <p className={styles.newsFeaturedExcerpt}>{featuredArticle.description}</p>
+                  <div className={styles.newsMeta}>
+                    <span className={styles.newsDate}>📅 {featuredArticle.additionalData?.publishTimestamp
+                      ? new Date(featuredArticle.additionalData.publishTimestamp).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+                      : ''}</span>
+                    <button className={styles.newsReadMore}>Read Full Article →</button>
+                  </div>
                 </div>
               </div>
-            ))}
+            )}
+
+            {/* Sidebar news items */}
+            {sidebarArticles.length > 0 && (
+              <div className={styles.newsSidebar}>
+                <p className={styles.newsSidebarTitle}>Recent Updates</p>
+                {sidebarArticles.map((item) => (
+                  <div
+                    key={item.id}
+                    className={styles.newsItem}
+                    onClick={() => setSelectedArticle(item)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedArticle(item);
+                      }
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <span className={styles.newsItemIcon}>📰</span>
+                    <div>
+                      <p className={styles.newsItemTitle}>{item.title}</p>
+                      <p className={styles.newsItemDesc}>{item.description}</p>
+                      <span className={styles.newsItemDate}>📅 {item.additionalData?.publishTimestamp
+                        ? new Date(item.additionalData.publishTimestamp).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+                        : ''}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
           </div>
-
-        </div>
-
-        {/* Announcements strip */}
-        <div className={styles.announcementsStrip}>
-          {ANNOUNCEMENTS.map((a) => (
-            <div key={a.title} className={styles.announceItem}>
-              <span className={styles.announceEmoji}>{a.emoji}</span>
-              <p className={styles.announceTitle}>{a.title}</p>
-              <p className={styles.announceBody}>{a.body}</p>
-            </div>
-          ))}
-        </div>
+        ) : (
+          <p style={{ textAlign: 'center', color: '#718096', padding: '2rem' }}>No news articles published yet.</p>
+        )}
 
       </section>
+
+      {/* Article Popup Modal */}
+      {selectedArticle && (
+        <div className={styles.articleOverlay} onClick={() => setSelectedArticle(null)}>
+          <div className={styles.articleModal} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.articleClose} onClick={() => setSelectedArticle(null)}>✕</button>
+            {selectedArticle.imageUrl && (
+              <img
+                src={selectedArticle.imageUrl}
+                alt={selectedArticle.title}
+                className={styles.articleModalImg}
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            <div className={styles.articleModalBody}>
+              <span className={styles.articleModalCategory}>{selectedArticle.additionalData?.category || 'Update'}</span>
+              <h2 className={styles.articleModalTitle}>{selectedArticle.title}</h2>
+              <p className={styles.articleModalDate}>
+                📅 {selectedArticle.additionalData?.publishTimestamp
+                  ? new Date(selectedArticle.additionalData.publishTimestamp).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+                  : ''}
+              </p>
+              <div
+                className={styles.articleModalContent}
+                dangerouslySetInnerHTML={{ __html: selectedArticle.additionalData?.content || selectedArticle.description || '' }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
     </div> // end .wrapper
   );

@@ -14,6 +14,7 @@ const AdminSidebar = () => {
     { name: 'Hero Banner', path: '/adminpro/hero-banner', icon: <FiFileText /> },
     { name: 'Garbhagriha', path: '/adminpro/garbhagriha', icon: <FiFileText /> },
     { name: 'Panchang', path: '/adminpro/panchang', icon: <FiFileText /> },
+    { name: 'News & Updates', path: '/adminpro/news', icon: <FiFileText /> },
   ];
 
   return (

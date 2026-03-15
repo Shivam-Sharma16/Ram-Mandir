@@ -6,8 +6,8 @@ import Footer from "@/src/components/common/Footer/Footer";
 import GoogleTranslate from "@/src/components/common/GoogleTranslate";
 
 export const metadata: Metadata = {
-  title: "Shree Ram Mandir | Ayodhya",
-  description: "Official portal for Shree Ram Mandir, Ayodhya.",
+  title: "Shree Ram Mandir | Jaipur",
+  description: "Official portal for Shree Ram Mandir, Jaipur.",
 };
 
 // This MUST be a default export for Next.js to recognize it

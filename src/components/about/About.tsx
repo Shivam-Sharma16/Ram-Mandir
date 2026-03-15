@@ -30,13 +30,11 @@ interface TrustMember{ name: string; role: string; since: string; avatar: string
 // ─────────────────────────────────────────────
 
 const MILESTONES: Milestone[] = [
-  { year: '1528', title: 'Original Mandir',    desc: 'Ancient temple marking the birthplace of Lord Ram stood at this sacred site, revered by millions of devotees across Bharatvarsha.' },
-  { year: '1853', title: 'First Legal Claim',  desc: 'The first recorded legal claim for the sacred land was filed, beginning a long spiritual and judicial journey spanning generations.' },
-  { year: '1949', title: 'Divine Manifestation', desc: 'The idol of Ram Lalla miraculously appeared within the disputed structure, intensifying the faith of crores of devotees.' },
-  { year: '1986', title: 'Shilanyas Ceremony', desc: 'Shilanyas ceremony was performed on the 9th of November in the presence of saints and lakhs of devotees from across India.' },
-  { year: '2019', title: 'Historic Verdict',   desc: 'The Supreme Court delivered its landmark unanimous verdict, paving the divine path for the construction of the temple.' },
-  { year: '2020', title: 'Bhoomi Pujan',       desc: 'Prime Minister Narendra Modi performed the sacred Bhoomi Pujan on 5th August, marking the formal beginning of construction.' },
-  { year: '2024', title: 'Pran Pratishtha',    desc: 'The grand consecration, Pran Pratishtha, was performed on 22nd January 2024 — a moment of eternal glory for Bharat.' },
+  { year: '1955', title: 'Foundation & Early Establishment', desc: 'The temple was originally established on the auspicious occasion of Akshaya Tritiya. The Pran Pratishtha of Bhagwan Shri Ram was performed under the spiritual guidance of Niranjan Dev Tirtha, the revered Shankaracharya of Govardhan Math.' },
+  { year: '1969', title: 'Radha Krishna Consecration', desc: 'The sacred idols of Radha and Krishna were installed, and their Pran Pratishtha ceremony was performed in the temple.' },
+  { year: '1980', title: 'Vaishno Devi Shrine', desc: 'A separate Garbhagriha (sanctum) dedicated to Vaishno Devi was constructed for the devotees.' },
+  { year: '1990', title: 'Shivalaya Construction', desc: 'A dedicated Shivalaya (temple dedicated to Lord Shiva) was built within the temple premises to facilitate Shiva worship.' },
+  { year: '2005', title: 'Lakshmi Narayana Temple', desc: 'A beautiful temple dedicated to Lakshmi and Narayana was constructed and consecrated within the complex.' },
 ];
 
 const PRIESTS: Priest[] = [
@@ -63,14 +61,21 @@ const PRIESTS: Priest[] = [
 ];
 
 const TRUST_MEMBERS: TrustMember[] = [
-  { name: 'Shri Mahant Nrityagopal Das Ji', role: 'President',          since: 'Since 2020', avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&q=80', department: 'Spiritual Governance'       },
-  { name: 'Shri Champat Rai',               role: 'General Secretary',  since: 'Since 2020', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80', department: 'Administration & Legal'     },
-  { name: 'Shri Anil Mishra',               role: 'Treasurer',          since: 'Since 2020', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80', department: 'Finance & Accounts'         },
-  { name: 'Swami Govind Dev Giri Ji',       role: 'Trustee',            since: 'Since 2020', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=300&q=80', department: 'Vedic & Cultural Affairs'   },
-  { name: 'Dr. Aniruddha Kumar',            role: 'Trustee',            since: 'Since 2021', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80', department: 'Infrastructure & Development'},
-  { name: 'Shri Kameshwar Chaupal',         role: 'Trustee',            since: 'Since 2020', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&q=80', department: 'Community Outreach'         },
-  { name: 'Shri Virender Kumar Dikshit',    role: 'Trustee',            since: 'Since 2022', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&q=80', department: 'Security & Pilgrim Services'},
-  { name: 'Dr. Sadhvi Rituambhara',         role: 'Honorary Trustee',   since: 'Since 2020', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80', department: 'Dharmic Education'          },
+  { name: 'Trust Member 1',  role: 'President',          since: 'Since 1955', avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&q=80', department: 'Spiritual Governance'       },
+  { name: 'Trust Member 2',  role: 'General Secretary',  since: 'Since 1955', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80', department: 'Administration & Legal'     },
+  { name: 'Trust Member 3',  role: 'Treasurer',          since: 'Since 1980', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80', department: 'Finance & Accounts'         },
+  { name: 'Trust Member 4',  role: 'Trustee',            since: 'Since 1990', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=300&q=80', department: 'Vedic & Cultural Affairs'   },
+  { name: 'Trust Member 5',  role: 'Trustee',            since: 'Since 2005', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80', department: 'Infrastructure & Development'},
+  { name: 'Trust Member 6',  role: 'Trustee',            since: 'Since 2010', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&q=80', department: 'Community Outreach'         },
+  { name: 'Trust Member 7',  role: 'Trustee',            since: 'Since 2015', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&q=80', department: 'Security & Pilgrim Services'},
+  { name: 'Trust Member 8',  role: 'Trustee',            since: 'Since 2018', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80', department: 'Dharmic Education'          },
+  { name: 'Trust Member 9',  role: 'Trustee',            since: 'Since 2020', avatar: 'https://images.unsplash.com/photo-1566753323558-f4e0952af115?w=300&q=80', department: 'Event Management'           },
+  { name: 'Trust Member 10', role: 'Trustee',            since: 'Since 2021', avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=300&q=80', department: 'Public Relations'           },
+  { name: 'Trust Member 11', role: 'Trustee',            since: 'Since 2021', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80', department: 'Prasad Distribution'        },
+  { name: 'Trust Member 12', role: 'Trustee',            since: 'Since 2022', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80', department: 'Venue Booking'              },
+  { name: 'Trust Member 13', role: 'Trustee',            since: 'Since 2022', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=300&q=80', department: 'Information Technology'     },
+  { name: 'Trust Member 14', role: 'Trustee',            since: 'Since 2023', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80', department: 'Donor Relations'            },
+  { name: 'Trust Member 15', role: 'Trustee',            since: 'Since 2023', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&q=80', department: 'Auditing & Compliance'      },
 ];
 
 // ─────────────────────────────────────────────
@@ -265,7 +270,7 @@ const About: React.FC = () => {
         <div className={styles.heroFade} />
         <div className={styles.heroContent}>
           <span className={styles.heroOm}>ॐ</span>
-          <p className={styles.heroSuptitle}>Shree Ram Mandir · Ayodhya</p>
+          <p className={styles.heroSuptitle}>Shree Ram Mandir · Jaipur</p>
           <h1 className={styles.heroTitle}>
             <span className={styles.heroTitleSpan}>About the Mandir</span>
           </h1>
@@ -290,16 +295,16 @@ const About: React.FC = () => {
 
         <div className={styles.historyIntro} data-fadein>
           <div className={styles.historyText}>
-            <p>Ayodhya, on the banks of the sacred Saryu river, is among the seven holiest cities of Bharat — the birthplace of <strong>Maryada Purushottam Shree Ram</strong>, the seventh avatar of Lord Vishnu and the embodiment of Dharma, righteousness, and compassion.</p>
-            <p>The Shree Ram Mandir marks the culmination of a journey of faith spanning over five centuries — from ancient temples to legal battles, from courtroom verdicts to the grandest Bhoomi Pujan in independent India's history, written with the devotion of hundreds of millions of Ramabhaktas.</p>
-            <p>Today, the Mandir stands as a <strong>symbol of cultural renaissance, spiritual unity, and eternal Dharma</strong> — welcoming pilgrims from every corner of Bharat and the world, offering darshan, solace, and the divine blessings of Ram Lalla.</p>
+            <p>Located in Adarsh Nagar, Jaipur, the <strong>Shree Ram Mandir</strong> is an important place of worship dedicated to Lord Shri Ram and other Hindu deities, serving as a beacon of spirituality for devotees in the region.</p>
+            <p>The temple was originally established on 25th April 1955, coinciding with the auspicious occasion of Akshaya Tritiya under the Mrighashira Nakshatra. The Pran Pratishtha (consecration ceremony) of Bhagwan Shri Ram was performed under the holy spiritual guidance and Acharyatva of Niranjan Dev Tirtha, the revered Shankaracharya of Govardhan Math, Puri.</p>
+            <p>Today, the Mandir stands as a <strong>symbol of cultural renaissance, spiritual unity, and eternal Dharma</strong> — welcoming pilgrims and offering daily darshan, spiritual solace, and the divine blessings of Lord Shri Ram and the extended temple deities.</p>
           </div>
           <div className={styles.historyStats}>
             {[
-              { num: '70+',      label: 'Acres of Temple Complex' },
-              { num: '161 ft',   label: 'Height of Main Shikhara'  },
-              { num: '392',      label: 'Pillars in the Mandir'    },
-              { num: '5 Crore+', label: 'Devotees Annually'        },
+              { num: '1955',     label: 'Year Established' },
+              { num: '15',       label: 'Trust Members'  },
+              { num: '5+',       label: 'Major Shrines'    },
+              { num: 'Daily',    label: 'Aarti & Darshan'  },
             ].map((s) => (
               <div key={s.label} className={styles.statItem}>
                 <span className={styles.statNum}>{s.num}</span>
@@ -388,19 +393,19 @@ const About: React.FC = () => {
           <div className={styles.trustCard}>
             <h3 className={styles.trustName}>
               Shree Ram Mandir Pranyas
-              <br /><span className={styles.trustNameHi}>सनातन धर्म सभा</span>
+              <br /><span className={styles.trustNameHi}>श्री सनातन धर्म सभा</span>
             </h3>
-            <p className={styles.trustDesc}>The <strong>Shree Ram Mandir Pranyas Sanatan Dharam Sabha</strong> is the official trust body constituted under the Government of India's notification to oversee the construction and perpetual management of the Shree Ram Janmabhoomi Mandir at Ayodhya.</p>
-            <p className={styles.trustDesc}>Established in February 2020, the Trust is empowered to acquire movable and immovable properties, raise funds, and undertake all activities related to the construction, management, and maintenance of the temple and allied infrastructure across the 67.703 acres of land.</p>
-            <p className={styles.trustDesc}>The Sabha remains committed to upholding <strong>Sanatana Dharma</strong>, promoting Vedic education through the Veda Pathshala, running daily Annadaan seva, and maintaining the temple as a living centre of culture, spirituality, and divine service.</p>
+            <p className={styles.trustDesc}>The <strong>Shree Ram Mandir Pranyas – Shree Sanatan Dharm Sabha</strong> is the official registered trust body established to oversee the perpetual management and maintenance of the Shree Ram Mandir in Adarsh Nagar, Jaipur.</p>
+            <p className={styles.trustDesc}>Established in 1955, the same year the temple was founded, the Trust is responsible for the administration, financial management, and religious activities of the temple. It currently consists of 15 dedicated members who collectively govern the temple's operations and future developments.</p>
+            <p className={styles.trustDesc}>The Sabha remains committed to upholding <strong>Sanatana Dharma</strong>, organizing major festivals, managing bookings for religious events in the temple's bhawans, and maintaining the temple as a living centre of culture, spirituality, and divine service.</p>
             <div className={styles.trustFacts}>
               {[
-                { icon: '📅', k: 'Established',   v: 'February 5, 2020'                      },
-                { icon: '⚖️', k: 'Authority',      v: 'Govt. of India Gazette Notification'   },
-                { icon: '🏛️', k: 'Registered As', v: 'Public Charitable Trust'               },
-                { icon: '📍', k: 'Headquarters',   v: 'Ayodhya, Uttar Pradesh'                },
-                { icon: '🌐', k: 'Website',        v: 'shreeram.mandir.gov.in'                },
-                { icon: '📞', k: 'Contact',        v: '1800-XXX-XXXX (Toll Free)'             },
+                { icon: '📅', k: 'Established',   v: '1955'                                  },
+                { icon: '⚖️', k: 'Management',     v: 'Committee of 15 Members'               },
+                { icon: '🏛️', k: 'Registered As', v: 'Registered Temple Trust'               },
+                { icon: '📍', k: 'Location',       v: 'Adarsh Nagar, Jaipur, Rajasthan'      },
+                { icon: '🌐', k: 'Website',        v: 'Registered Trust Domain'               },
+                { icon: '📞', k: 'Contact',        v: 'Head Office Directory'                 },
               ].map((f) => (
                 <div key={f.k} className={styles.factItem}>
                   <span className={styles.factIcon}>{f.icon}</span>
@@ -420,7 +425,7 @@ const About: React.FC = () => {
         <SectionHeader
           tag="Sadasya Parichay · सदस्य परिचय"
           heading="Trust Members"
-          subtext="Distinguished individuals entrusted with the divine responsibility of guiding the Pranyas with wisdom, devotion, and service."
+          subtext="Distinguished individuals entrusted with the divine responsibility of guiding the Pranyas with wisdom, devotion, and service. (Placeholder Data)"
           dark
         />
         <div data-fadein>
