@@ -211,3 +211,30 @@
   background-color: #cbd5e0;
   cursor: not-allowed;
 }
+
+/* ... existing styles ... */
+
+.removeBtn {
+  margin-top: 1rem;
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.removeBtn:hover:not(:disabled) {
+  background-color: #fecaca;
+}
+
+.removeBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
