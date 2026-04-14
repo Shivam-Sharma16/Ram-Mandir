@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiHome, FiFileText, FiSettings, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiFileText, FiSettings, FiLogOut, FiImage } from 'react-icons/fi';
 import styles from './AdminSidebar.module.css';
 
 const AdminSidebar = () => {
@@ -14,6 +14,7 @@ const AdminSidebar = () => {
     { name: 'Hero Banner', path: '/adminpro/hero-banner', icon: <FiFileText /> },
     { name: 'Garbhagriha', path: '/adminpro/garbhagriha', icon: <FiFileText /> },
     { name: 'Panchang', path: '/adminpro/panchang', icon: <FiFileText /> },
+    { name: 'Gallery', path: '/adminpro/gallery', icon: <FiImage /> },
     { name: 'News & Updates', path: '/adminpro/news', icon: <FiFileText /> },
   ];
 

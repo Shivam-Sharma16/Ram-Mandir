@@ -41,7 +41,7 @@ interface NavLink {
 const NAV_LINKS: NavLink[] = [
   { label: 'Home',       href: '/'          },
   { label: 'Bookings',   href: '/booking'   },
-  { label: 'Gallery',    href: '/#navgraha' },
+  { label: 'Gallery',    href: '/gallery' },
   { label: 'About Us',   href: '/about'     },
   { label: 'Contact Us', href: '/contact'  },
 ];
